@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { store } from "../store.js";
+import { store } from "../store";
 import styled from "styled-components";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../utils";
@@ -8,6 +8,80 @@ import { ReactComponent as Check } from "../assets/check.svg";
 import { ReactComponent as Github } from "../assets/github.svg";
 import { ReactComponent as Linkedin } from "../assets/linkedin.svg";
 import { ReactComponent as Twitter } from "../assets/twitter.svg";
+
+export const Card = ({ selected = false, data, onSelect }) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  // handles card drag / drop event
+  const [{ isDragging }, dragRef] = useDrag({
+    item: { type: ItemTypes.CARD, id: data.id, stage: data.stage },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      if (item && dropResult) {
+        dispatch({
+          type: "move-candidates",
+          value: [item.id],
+          to: dropResult.title,
+        });
+        dispatch({
+          type: "record-last-action",
+          ids: [item.id],
+          to: dropResult.title,
+          from: item.stage,
+        });
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  return (
+    <Styled ref={dragRef} style={{ opacity: isDragging ? 0.2 : 1 }}>
+      <div className="picture-container">
+        {selected && (
+          <div className="picture-selected-overlay">
+            <Check />
+          </div>
+        )}
+        <div className="picture" onClick={() => onSelect(data.id)} />
+      </div>
+      <div className="text-container">
+        <div className="name">{data.firstName + " " + data.lastName}</div>
+        <div className="title">{data.job}</div>
+        <div className="tags">
+          {data.tags.map((tag, i) => (
+            <Pill
+              key={`tag_${tag}_${i}`}
+              title={tag}
+              onClick={() => {
+                dispatch({ type: "set-filter", value: tag });
+              }}
+            />
+          ))}
+          {data.github && (
+            <a className="social-icon" target="__blank" href={data.github}>
+              <Github />
+            </a>
+          )}
+          {data.linkedin && (
+            <a className="social-icon" target="__blank" href={data.linkedin}>
+              <Linkedin />
+            </a>
+          )}
+          {data.twitter && (
+            <a className="social-icon" target="__blank" href={data.twitter}>
+              <Twitter />
+            </a>
+          )}
+        </div>
+      </div>
+    </Styled>
+  );
+};
+
+// Styles ----
 
 const Styled = styled.div`
   background: hsl(222, 15%, 16%);
@@ -87,74 +161,3 @@ const Styled = styled.div`
     }
   }
 `;
-
-export const Card = ({ selected = false, data, onSelect }) => {
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
-
-  const [{ isDragging }, dragRef] = useDrag({
-    item: { type: ItemTypes.CARD, id: data.id, stage: data.stage },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
-        dispatch({
-          type: "move-candidates",
-          value: [item.id],
-          to: dropResult.title,
-        });
-        dispatch({
-          type: "record-last-action",
-          ids: [item.id],
-          to: dropResult.title,
-          from: item.stage,
-        });
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  return (
-    <Styled ref={dragRef} style={{ opacity: isDragging ? 0.2 : 1 }}>
-      <div className="picture-container">
-        {selected && (
-          <div className="picture-selected-overlay">
-            <Check />
-          </div>
-        )}
-        <div className="picture" onClick={() => onSelect(data.id)} />
-      </div>
-      <div className="text-container">
-        <div className="name">{data.firstName + " " + data.lastName}</div>
-        <div className="title">{data.job}</div>
-        <div className="tags">
-          {data.tags.map((tag, i) => (
-            <Pill
-              key={`tag_${tag}_${i}`}
-              title={tag}
-              onClick={() => {
-                dispatch({ type: "set-filter", value: tag });
-              }}
-            />
-          ))}
-          {data.github && (
-            <a className="social-icon" target="__blank" href={data.github}>
-              <Github />
-            </a>
-          )}
-          {data.linkedin && (
-            <a className="social-icon" target="__blank" href={data.linkedin}>
-              <Linkedin />
-            </a>
-          )}
-          {data.twitter && (
-            <a className="social-icon" target="__blank" href={data.twitter}>
-              <Twitter />
-            </a>
-          )}
-        </div>
-      </div>
-    </Styled>
-  );
-};

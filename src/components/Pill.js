@@ -3,6 +3,21 @@ import styled, { css } from "styled-components";
 
 import { ReactComponent as Delete } from "../assets/x.svg";
 
+export const Pill = ({ onClick, title, withDelete = false }) => {
+  return (
+    <Styled withDelete={withDelete} onClick={onClick}>
+      {title}
+      {withDelete && (
+        <div className="delete-icon">
+          <Delete />
+        </div>
+      )}
+    </Styled>
+  );
+};
+
+// Styles ----
+
 const Styled = styled.div`
   padding: 4px 6px;
   font-size: 10px;
@@ -55,16 +70,3 @@ const Styled = styled.div`
       }
     `}
 `;
-
-export const Pill = ({ onClick, title, withDelete = false }) => {
-  return (
-    <Styled withDelete={withDelete} onClick={onClick}>
-      {title}
-      {withDelete && (
-        <div className="delete-icon">
-          <Delete />
-        </div>
-      )}
-    </Styled>
-  );
-};

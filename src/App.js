@@ -4,7 +4,7 @@ import { MainContainer } from "./components/MainContainer";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { LoadMore } from "./components/LoadMore";
-import { StateProvider } from "./store.js";
+import { StateProvider } from "./store";
 
 function App() {
   return (

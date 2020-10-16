@@ -1,6 +1,21 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+export const Button = ({
+  variant = "load-more",
+  onClick,
+  children,
+  disabled,
+}) => {
+  return (
+    <Styled disabled={disabled} variant={variant} onClick={onClick}>
+      {children}
+    </Styled>
+  );
+};
+
+// Styles  -----
+
 const Styled = styled.button`
   transition: 0.25s all;
   cursor: pointer;
@@ -58,16 +73,3 @@ const loadMoreVariant = css`
     border: 1px solid hsl(222, 15%, 25%);
   }
 `;
-
-export const Button = ({
-  variant = "load-more",
-  onClick,
-  children,
-  disabled,
-}) => {
-  return (
-    <Styled disabled={disabled} variant={variant} onClick={onClick}>
-      {children}
-    </Styled>
-  );
-};

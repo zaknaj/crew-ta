@@ -1,20 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { store } from "../store.js";
-
-const Styled = styled.input`
-  border-radius: 15px;
-  padding: 0 24px;
-  background: hsl(222, 15%, 20%);
-  height: 40px;
-  width: 350px;
-  font-size: 14px;
-  &::placeholder {
-    color: hsl(222, 15%, 50%);
-    opacity: 1;
-    font-size: 14px;
-  }
-`;
+import { store } from "../store";
 
 export const Search = () => {
   const [value, setValue] = useState("");
@@ -39,3 +25,19 @@ export const Search = () => {
     </form>
   );
 };
+
+// Styles ----
+
+const Styled = styled.input`
+  border-radius: 15px;
+  padding: 0 24px;
+  background: hsl(222, 15%, 20%);
+  height: 40px;
+  width: 350px;
+  font-size: 14px;
+  &::placeholder {
+    color: hsl(222, 15%, 50%);
+    opacity: 1;
+    font-size: 14px;
+  }
+`;

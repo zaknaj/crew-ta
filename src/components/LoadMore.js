@@ -1,20 +1,8 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Button } from "./Button";
-import { store } from "../store.js";
+import { store } from "../store";
 import { getCandidates } from "../api";
-
-const Styled = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .no-data {
-    font-size: 12px;
-    color: hsl(222, 15%, 60%);
-    line-height: 40px;
-  }
-`;
 
 export const LoadMore = () => {
   const [loading, setLoading] = useState(false);
@@ -48,3 +36,17 @@ export const LoadMore = () => {
     </Styled>
   );
 };
+
+// Styles ----
+
+const Styled = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .no-data {
+    font-size: 12px;
+    color: hsl(222, 15%, 60%);
+    line-height: 40px;
+  }
+`;

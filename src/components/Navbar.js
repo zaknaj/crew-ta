@@ -3,30 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { Search } from "./Search";
 import { Pill } from "./Pill";
-import { store } from "../store.js";
-
-const Styled = styled.div`
-  height: 70px;
-  border-bottom: 1px solid hsl(222, 15%, 20%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-
-  .search-container {
-    display: flex;
-    align-items: center;
-    .clear-button {
-      margin-right: 32px;
-      font-size: 12px;
-      cursor: pointer;
-      color: hsl(222, 15%, 80%);
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-`;
+import { store } from "../store";
 
 export const Navbar = () => {
   const globalState = useContext(store);
@@ -58,3 +35,28 @@ export const Navbar = () => {
     </Styled>
   );
 };
+
+// Styles ----
+
+const Styled = styled.div`
+  height: 70px;
+  border-bottom: 1px solid hsl(222, 15%, 20%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    .clear-button {
+      margin-right: 32px;
+      font-size: 12px;
+      cursor: pointer;
+      color: hsl(222, 15%, 80%);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+`;
