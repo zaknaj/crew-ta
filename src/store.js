@@ -4,6 +4,7 @@ const initialState = {
   filters: [],
   data: [],
   page: 0,
+  lastAction: {},
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -36,6 +37,27 @@ const StateProvider = ({ children }) => {
       }
       case "clear-filters": {
         const newState = { ...state, filters: [] };
+        return newState;
+      }
+      case "undo": {
+        if (state.lastAction.ids) {
+          const newData = [...state.data];
+          state.lastAction.ids.forEach((id) => {
+            const index = newData.findIndex((el) => el.id === id);
+            newData[index].stage = state.lastAction.from;
+          });
+          const newState = { ...state, data: newData, lastAction: {} };
+          return newState;
+        }
+        return state;
+      }
+      case "record-last-action": {
+        const lastAction = {
+          from: action.from,
+          to: action.to,
+          ids: action.ids,
+        };
+        const newState = { ...state, lastAction };
         return newState;
       }
       case "move-candidates": {

@@ -134,6 +134,12 @@ export const Column = ({ title, cards }) => {
 
   const moveTo = (ids, to) => {
     dispatch({ type: "move-candidates", value: ids, to });
+    dispatch({
+      type: "record-last-action",
+      ids: ids,
+      to,
+      from: title,
+    });
     setSelected([]);
   };
 

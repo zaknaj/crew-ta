@@ -50,8 +50,20 @@ export const MainContainer = () => {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.composed && e.ctrlKey && e.charCode === 26) {
+        dispatch({ type: "undo" });
+      }
+    };
+    window.addEventListener("keypress", handleKeyPress);
+    return () => {
+      window.removeEventListener("keypress", handleKeyPress);
+    };
+  }, [dispatch]);
+
   return (
-    <Styled>
+    <Styled onKeyPress={(e) => console.log(e)}>
       <div className="shadow shadow-left" />
       <div className="shadow shadow-right" />
       {columns.map((col) => (

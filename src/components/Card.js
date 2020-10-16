@@ -15,7 +15,7 @@ const Styled = styled.div`
   border-radius: 10px;
   padding: 16px;
   padding-bottom: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   transition: 0.25s all;
   cursor: grab;
 
@@ -93,7 +93,7 @@ export const Card = ({ selected = false, data, onSelect }) => {
   const { dispatch } = globalState;
 
   const [{ isDragging }, dragRef] = useDrag({
-    item: { type: ItemTypes.CARD, id: data.id },
+    item: { type: ItemTypes.CARD, id: data.id, stage: data.stage },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
@@ -101,6 +101,12 @@ export const Card = ({ selected = false, data, onSelect }) => {
           type: "move-candidates",
           value: [item.id],
           to: dropResult.title,
+        });
+        dispatch({
+          type: "record-last-action",
+          ids: [item.id],
+          to: dropResult.title,
+          from: item.stage,
         });
       }
     },
