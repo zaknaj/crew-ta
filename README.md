@@ -27,7 +27,7 @@ Below are the additional features not mentioned in the coding assignment
 - 🔥 🔥 **Move multiple candidates:** When you click on a candidate picture, you can select them. Once one or more candidates are selected, a button appears that shows a menu. You can then click on the desired column and all the selected candidates will be moved there.
 - **Load more:** In order to load more candidates from the back end, you have a button on the bottom of the page that allows you to fetch an additional batch of candidates and add them to the available ones. Filters are only applied on the currently loaded candidates (not all candidates in the server). If there are no more candidates to load, the button disappears.
 - **Click on tag:** If you click on a tag in a candidate card, the filters are replaced by that tag.
-- 🔥 🔥 **CTRL-Z to undo the last action (batch transfer or single transfer)**
+- 🔥 🔥 **CTRL-Z to undo the last actions (batch transfer or single transfer)** (keeps complete history)
 
 ## To do
 
@@ -40,4 +40,3 @@ Here are some of the improvements / additional features to add, were we to conti
 - Lazy load images
 - Optimize performance for large data
 - Indicator for when CTRL+Z has been clicked (undo). Also an actual button for undoing visible on the screen.
-- Keep a bigger history of actions for undo (currently only last action) as a stack. Pop for each undo.
