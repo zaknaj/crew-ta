@@ -63,7 +63,7 @@ export const Column = ({ title, cards }) => {
       <div className="bottom-shadow" />
       <ColumnHeader
         selectedLength={selected.length}
-        showmenu={showMenu}
+        showMenu={showMenu}
         setShowMenu={setShowMenu}
         title={title}
       />
