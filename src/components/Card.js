@@ -8,6 +8,7 @@ import { ReactComponent as Check } from "../assets/check.svg";
 import { ReactComponent as Github } from "../assets/github.svg";
 import { ReactComponent as Linkedin } from "../assets/linkedin.svg";
 import { ReactComponent as Twitter } from "../assets/twitter.svg";
+import personIcon from "../assets/person.svg";
 
 export const Card = ({ selected = false, data, onSelect }) => {
   const globalState = useContext(store);
@@ -45,7 +46,14 @@ export const Card = ({ selected = false, data, onSelect }) => {
             <Check />
           </div>
         )}
-        <div className="picture" onClick={() => onSelect(data.id)} />
+        <div
+          className="picture"
+          style={{
+            // backgroundImage: `url(https://picsum.photos/50?rand=${Math.random()})`,
+            backgroundImage: `url(${personIcon})`,
+          }}
+          onClick={() => onSelect(data.id)}
+        />
       </div>
       <div className="text-container">
         <div className="name">{data.firstName + " " + data.lastName}</div>
@@ -145,6 +153,8 @@ const Styled = styled.div`
       height: 42px;
       width: 42px;
       background: hsl(222, 15%, 50%);
+      background-size: cover;
+      background-position: center;
     }
   }
 
